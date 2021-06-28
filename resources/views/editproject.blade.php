@@ -1,0 +1,92 @@
+<?php
+function lastWord($string)
+{
+   $listWords = explode('-', $string);
+   array_shift($listWords);
+   array_shift($listWords);
+   $lastWord = implode('-', $listWords);
+
+   return ucfirst($lastWord);
+}
+?>
+
+@extends('layouts.backoffice')
+
+@section('content')
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">{{ __('Modifier profil de '.$project->name) }}</div>
+    
+                    <div class="card-body">
+                        <form method="POST" action="/admin/projects/{{$project->id}}/editproject" enctype="multipart/form-data">
+                            {{method_field('PATCH')}}
+                            @csrf
+    
+                            <div class="form-group row">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nom') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="name" type="text" class="form-control" name="name" value="{{$project->name}}" required autocomplete="name" autofocus>
+    
+                                </div>
+                            </div>
+    
+                            <div class="form-group row">
+                                <label for="message" class="col-md-4 col-form-label text-md-right">{{ __('Message') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="message" type="text" class="form-control" name="message" value="{{$project->message}}" required autocomplete="email">
+    
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                    <label class="col-md-4 col-form-label text-md-right">Image</label>
+                                    <input class="col-md-6" type="file" name="image" id="image">
+                                </div>
+
+                            <div class="form-group row d-flex justify-content-center w-100">
+                                    <select name="icone">
+                                        @foreach ($icons as $icon)
+                                            @if($project->icone == $icon)
+                                                <option selected value="{{$icon}}">{{lastWord($icon)}}</option>                                        
+                                            @else 
+                                                <option value="{{$icon}}">{{lastWord($icon)}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+    
+                            <div class="form-group row mb-0 d-flex justify-content-around w-100">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Modifier') }}
+                                    </button>
+                        </form>
+                    
+                                <form method="POST" action="/admin/projects/{{$project->id}}/editproject">
+                                    @method('delete')
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                </form>
+
+                                @if ($errors->any())
+               <ul class="list-unstyled">
+                   @foreach ($errors->all() as $error)
+                       <li class="bg-warning text-danger">{{$error}}</li>
+                   @endforeach
+               </ul>
+           @endif
+
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@endsection
