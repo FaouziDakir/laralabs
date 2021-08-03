@@ -6,4 +6,6 @@ Après avoir cloné le projet, créez une DB intitulée "labs", ensuite lancez l
 
 Accès au backoffice depuis l'onglet edit (route "/login").
 
+Identifiants pour le role admin : test@gmail.com / test
+
 Consulter le fichier .env pour plus d'infos
