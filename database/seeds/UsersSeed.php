@@ -15,7 +15,7 @@ class UsersSeed extends Seeder
             'name' => 'Fouz',
             'avatar' => 'faker.jpg',
             'role' => 'admin',
-            'email' => 'fouz@gmail.com',
+            'email' => 'test@gmail.com',
             'email_verified_at' => now(),
             'biographie' => 'blabla',
             'password' => bcrypt('test'), // password
